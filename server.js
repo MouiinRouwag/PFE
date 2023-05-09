@@ -63,6 +63,21 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+const createAdmin = async () => {
+  const admin = await User.findOne({ where: { cin: 0000 } });
+  if (!admin) {
+     await User.create({
+      cin: "0000",
+      nom: "admin",
+      prenom: "admin",
+      mot_de_passe: "admin",
+      role : "admin" 
+    });
+  }
+};
+ 
+createAdmin()
+
 passport.use(
   new LocalStrategy(
     {
@@ -106,13 +121,9 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-app.post(
-  "/auth/login", 
-  passport.authenticate("local"),
-  (req, res) => {
-    res.json({ success : true });
-  }
-);
+app.post("/auth/login", passport.authenticate("local"), (req, res) => {
+  res.json({ success: true });
+});
 
 app.use(
   "/public",

@@ -109,12 +109,21 @@ const { QueryTypes } = require("sequelize");
 const passport = require("passport");
 const db = require("../models");
 const User = db.users;
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 
 const sequelize = db.sequelize;
 
-exports.loginPage = (req, res) => {
-  res.render("login");
+exports.loginPage = async (req, res) => {
+  console.log("await login page", await req.isAuthenticated());
+  if (!(await req.isAuthenticated())) {
+    res.render("login");
+  } else {
+    res
+      .writeHead(301, {
+        Location: "/dashboard",
+      })
+      .end();
+  }
 };
 
 exports.registertype = (req, res) => {
@@ -125,16 +134,14 @@ exports.registerPage = async (req, res) => {
   //   Location: "/auth/loginPage"
   // }).end();
 
-  const organismes = await sequelize.query(
-    `SELECT * FROM organismes`,
-    { type: QueryTypes.SELECT }
-  );
-  res.render("register",{
-
-    locals : {
-      selected :  req.params.type,
-      organismes : organismes
-    }
+  const organismes = await sequelize.query(`SELECT * FROM organismes`, {
+    type: QueryTypes.SELECT,
+  });
+  res.render("register", {
+    locals: {
+      selected: req.params.type,
+      organismes: organismes,
+    },
   });
 };
 
@@ -174,54 +181,28 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  });
+};
 
-//  return passport.use(
-//     new LocalStrategy(async function (cin, password, done) {
-//       const user = await sequelize.query(
-//         `SELECT * FROM users WHERE cin = ${cin}`,
-//         { type: QueryTypes.SELECT }
-//       );
+// app.post('/logout', function(req, res, next){
+//   req.logout(function(err) {
+//     if (err) { return next(err); }
+//     res.redirect('/');
+//   });
+// });
 
-//       if (user) {
-//         if (user.mot_de_passe === password) {
-//           return done(null, user);
-//         } else {
-//           return done(null, false, { message: "Incorrect password." });
-//         }
-//       } else {
-//         return done(null, false, { message: "Incorrect CIN." });
-//       }
-//     })
-//   );
-  // try {
-  //   const user = req.body;
-  //   const existant = await sequelize.query(`SELECT * FROM users WHERE cin = ${user.cin}`, { type: QueryTypes.SELECT })
-  //   if (existant) {
-  //     if (existant.mot_de_passe === user.motpasse) {
-  //       passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
-  //       res.status(200).json({
-  //         success: true,
-  //         message: "Utilisateur connecté avec succés",
-  //         data: existant,
-  //       });
-  //     } else {
-  //       res.status(400).json({
-  //         success: false,
-  //         message: "Mot de passe incorrect",
-  //       });
-  //     }
-  //   } else {
-  //     res.status(400).json({
-  //       success: false,
-  //       message: "CIN incorrect",
-  //     });
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json({
-  //     success: false,
-  //     message: "Erreur lors de la connexion du utilisateur",
-  //   });
-  // }
+exports.logout = async (req, res, next) => {
+  try {
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.json({
+        success: true,
+      });
+    });
+  } catch (error) {}
 };

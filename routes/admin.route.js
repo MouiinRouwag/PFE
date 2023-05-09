@@ -25,4 +25,13 @@ router.get("/editorganisme/:id", admin.getEditOrganisme);
 router.post("/updateorganisme/:id", admin.editOrganisme);
 router.delete("/deleteOrganisme/:id", admin.deleteOrganisme);
 
+
+
+router.get("/stage", admin.stage);
+router.post("/addStage", admin.addStage);
+router.get("/editstage/:id", admin.getEditStage);
+// router.get("/editenseignant/:id", admin.getEditEnseignant);
+// router.post("/updateorganisme/:id", admin.editOrganisme);
+// router.delete("/deleteOrganisme/:id", admin.deleteOrganisme);
+
 module.exports = router;

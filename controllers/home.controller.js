@@ -126,24 +126,36 @@
 // }
 
 exports.home = async (req, res) => {
-  console.log(req.isAuthenticated());
-    res.render("home", {
+  res.render("home", {
     locals: {
       title: "ES6 ",
     },
     partials: {
-      nav:  "views/includes/nav.html",
+      nav: "views/includes/nav.html",
     },
   });
 };
 
 exports.dashboard = async (req, res) => {
-    res.render("dashboard", {
-    locals: {
-      title: "ES6 ",
-    },
-    partials: {
-      nav:  "views/includes/nav.html",
-    },
-  });
-}
+  try {
+    // console.log('exports.dashboard',await req.isAuthenticated());
+    const user = await req.user;
+    if (await req.isAuthenticated()) {
+      res.render("dashboard", {
+        locals: {
+          title: "ES6 ",
+          userData: user.dataValues,
+        },
+        partials: {
+          nav: "views/includes/nav.html",
+        },
+      });
+    } else {
+      res
+        .writeHead(301, {
+          Location: `/auth/loginPage`,
+        })
+        .end();
+    }
+  } catch (error) {}
+};

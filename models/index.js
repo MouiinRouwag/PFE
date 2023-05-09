@@ -32,5 +32,6 @@ db.sequelize = sequelize;
 db.users = require("./user.model.js")(sequelize, Sequelize);
 db.organisme = require("./organisme.model.js")(sequelize, Sequelize);
 db.etudiant = require("./etudiant.model.js")(sequelize, Sequelize);
+db.stage = require("./stage.model.js")(sequelize, Sequelize);
 
 module.exports = db;

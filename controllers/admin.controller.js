@@ -401,3 +401,103 @@ const getOrganismeById = async (id) => {
   });
   return Result;
 };
+
+
+
+// stage
+
+exports.stage = async (req, res) => {
+  const data = await getAllStages();
+  res.render("stage", { locals: { stages: data } });
+};
+
+exports.addStage = async (req, res) => {
+  try {
+    const stage = {
+      code_stage: req.body.code_stage,
+      type: req.body.type,
+      duree: req.body.duree,
+    };
+
+    const stageeValues = [
+      "UUID()",
+      `"${stage.code_stage}"`,
+      `"${stage.type}"`,
+      `"${stage.duree}"`,
+    ];
+    const Query = `INSERT INTO stages (id, code_stage, type, duree, createdAt, updatedAt) VALUES (${stageeValues.join(
+      ", "
+    )},NOW(),NOW())`;
+    const Result = await sequelize.query(Query);
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+exports.getEditStage = async (req, res) => {
+  const Result = await getStageById(req.params.id);
+  res.render("editestage", {
+    locals: {
+      e: Result[0],
+    },
+  });
+};
+exports.editOrganisme = async (req, res) => {
+  try {
+    const update = {
+      code_organisme: req.body.code_organisme,
+      nom_organisme: req.body.nom_organisme,
+      adresse_organisme: req.body.adresse_organisme,
+      telephone_organisme: req.body.telephone_organisme,
+      email_organisme: req.body.email_organisme,
+      secteur_activite: req.body.secteur_activite,
+    };
+    // update etudiant to database using raw query
+    const updated = await sequelize.query(
+      `UPDATE organismes SET code_organisme = "${update.code_organisme}", nom_organisme = "${update.nom_organisme}", addresse_organisme = "${update.adresse_organisme}", telephone_organisme = "${update.telephone_organisme}", email_organisme = "${update.email_organisme}", secteur_activite = "${update.secteur_activite}" WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.UPDATE }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+exports.deleteOrganisme = async (req, res) => {
+  try {
+    const deleted = await sequelize.query(
+      `DELETE FROM organismes WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.DELETE }
+    );
+    res.json({success:true})
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+
+const getAllStages = async () => {
+  try {
+    const Query = `SELECT * FROM stages`;
+    const Result = await sequelize.query(Query, {
+      type: QueryTypes.SELECT,
+    });
+    return Result;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getStageById = async (id) => {
+  const Query = `SELECT * FROM stages WHERE id = "${id}"`;
+  const Result = await sequelize.query(Query, {
+    type: QueryTypes.SELECT,
+  });
+  return Result;
+};
