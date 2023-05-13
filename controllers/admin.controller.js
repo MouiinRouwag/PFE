@@ -29,7 +29,7 @@ exports.addEtudiant = async (req, res) => {
       role: "etudiant",
     };
     // add etudiant to database using raw query
-
+    console.log(etudiant);
     const etudiantValues = [
       "UUID()",
       `"${etudiant.cin}"`,
@@ -296,7 +296,7 @@ const getEnseignantById = async (id) => {
   }
 };
 
-// organisme
+// organisme//
 
 exports.organisme = async (req, res) => {
   const data = await getAllOrganismes();
@@ -309,7 +309,7 @@ exports.addOrganisme = async (req, res) => {
     const organisme = {
       code_organisme: req.body.code_organisme,
       nom_organisme: req.body.nom_organisme,
-      adresse_organisme: req.body.addresse_organisme,
+      adresse_organisme: req.body.adresse_organisme,
       telephone_organisme: req.body.telephone_organisme,
       email_organisme: req.body.email_organisme,
       secteur_activite: req.body.secteur_activite,
@@ -325,7 +325,7 @@ exports.addOrganisme = async (req, res) => {
       `"${organisme.email_organisme}"`,
       `"${organisme.secteur_activite}"`,
     ];
-    const Query = `INSERT INTO organismes (id, code_organisme, nom_organisme, addresse_organisme, telephone_organisme, email_organisme, secteur_activite, createdAt, updatedAt) VALUES (${organismeValues.join(
+    const Query = `INSERT INTO organismes (id, code_organisme, nom_organisme, adresse_organisme, telephone_organisme, email_organisme, secteur_activite, createdAt, updatedAt) VALUES (${organismeValues.join(
       ", "
     )},NOW(),NOW())`;
     const Result = await sequelize.query(Query);
@@ -358,7 +358,7 @@ exports.editOrganisme = async (req, res) => {
     };
     // update etudiant to database using raw query
     const updated = await sequelize.query(
-      `UPDATE organismes SET code_organisme = "${update.code_organisme}", nom_organisme = "${update.nom_organisme}", addresse_organisme = "${update.adresse_organisme}", telephone_organisme = "${update.telephone_organisme}", email_organisme = "${update.email_organisme}", secteur_activite = "${update.secteur_activite}" WHERE id = "${req.params.id}"`,
+      `UPDATE organismes SET code_organisme = "${update.code_organisme}", nom_organisme = "${update.nom_organisme}", adresse_organisme = "${update.adresse_organisme}", telephone_organisme = "${update.telephone_organisme}", email_organisme = "${update.email_organisme}", secteur_activite = "${update.secteur_activite}" WHERE id = "${req.params.id}"`,
       { type: QueryTypes.UPDATE }
     );
     res.json({
@@ -375,12 +375,11 @@ exports.deleteOrganisme = async (req, res) => {
       `DELETE FROM organismes WHERE id = "${req.params.id}"`,
       { type: QueryTypes.DELETE }
     );
-    res.json({success:true})
+    res.json({ success: true });
   } catch (error) {
     res.json({ error });
   }
 };
-
 
 const getAllOrganismes = async () => {
   try {
@@ -401,8 +400,6 @@ const getOrganismeById = async (id) => {
   });
   return Result;
 };
-
-
 
 // stage
 
@@ -446,19 +443,16 @@ exports.getEditStage = async (req, res) => {
     },
   });
 };
-exports.editOrganisme = async (req, res) => {
+exports.editStage = async (req, res) => {
   try {
     const update = {
-      code_organisme: req.body.code_organisme,
-      nom_organisme: req.body.nom_organisme,
-      adresse_organisme: req.body.adresse_organisme,
-      telephone_organisme: req.body.telephone_organisme,
-      email_organisme: req.body.email_organisme,
-      secteur_activite: req.body.secteur_activite,
+      code_stage: req.body.code_stage,
+      type: req.body.type,
+      duree: req.body.duree,
     };
-    // update etudiant to database using raw query
+    // update stage to database using raw query
     const updated = await sequelize.query(
-      `UPDATE organismes SET code_organisme = "${update.code_organisme}", nom_organisme = "${update.nom_organisme}", addresse_organisme = "${update.adresse_organisme}", telephone_organisme = "${update.telephone_organisme}", email_organisme = "${update.email_organisme}", secteur_activite = "${update.secteur_activite}" WHERE id = "${req.params.id}"`,
+      `UPDATE stages SET code_stage = "${update.code_stage}", type = "${update.type}", duree = "${update.duree}" WHERE id = "${req.params.id}"`,
       { type: QueryTypes.UPDATE }
     );
     res.json({
@@ -469,26 +463,25 @@ exports.editOrganisme = async (req, res) => {
   }
 };
 
-exports.deleteOrganisme = async (req, res) => {
+exports.deleteStage = async (req, res) => {
   try {
     const deleted = await sequelize.query(
-      `DELETE FROM organismes WHERE id = "${req.params.id}"`,
+      `DELETE FROM stages WHERE id = "${req.params.id}"`,
       { type: QueryTypes.DELETE }
     );
-    res.json({success:true})
+    res.json({ success: true });
   } catch (error) {
     res.json({ error });
   }
 };
 
-
 const getAllStages = async () => {
   try {
-    const Query = `SELECT * FROM stages`;
-    const Result = await sequelize.query(Query, {
+    const stageQuery = `SELECT * FROM stages`;
+    const stageResult = await sequelize.query(stageQuery, {
       type: QueryTypes.SELECT,
     });
-    return Result;
+    return stageResult;
   } catch (error) {
     return error;
   }
@@ -501,3 +494,256 @@ const getStageById = async (id) => {
   });
   return Result;
 };
+// departement//
+exports.departement = async (req, res) => {
+  const data = await getAllDepartements();
+  console.log(data);
+  res.render("departement", { locals: { departements: data } });
+};
+
+exports.addDepartement = async (req, res) => {
+  try {
+    const departement = {
+      code_departement: req.body.code_departement,
+      nom_departement: req.body.nom_departement,
+    };
+
+    const departementeValues = [
+      "UUID()",
+      `"${departement.code_departement}"`,
+      `"${departement.nom_departement}"`,
+    ];
+    const Query = `INSERT INTO departements (id, code_departement, nom_departement,  createdAt, updatedAt) VALUES (${departementeValues.join(
+      ", "
+    )},NOW(),NOW())`;
+    const Result = await sequelize.query(Query);
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+exports.getEditDepartement = async (req, res) => {
+  const Result = await getDepartementById(req.params.id);
+  res.render("editedepartement", {
+    locals: {
+      e: Result[0],
+    },
+  });
+};
+exports.editDepartement = async (req, res) => {
+  try {
+    const update = {
+      code_departement: req.body.code_departement,
+      nom_departement: req.body.nom_departement,
+    };
+    // update departement to database using raw query
+    const updated = await sequelize.query(
+      `UPDATE departements SET code_departement = "${update.code_departement}", nom_departement = "${update.nom_departement}"  WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.UPDATE }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
+};
+
+exports.deleteDepartement = async (req, res) => {
+  try {
+    const deleted = await sequelize.query(
+      `DELETE FROM departements WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.DELETE }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+const getAllDepartements = async () => {
+  try {
+    const departmentQuery = `SELECT * FROM departements`;
+    const departementResult = await sequelize.query(departmentQuery, {
+      type: QueryTypes.SELECT,
+    });
+    return departementResult;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getDepartementById = async (id) => {
+  const Query = `SELECT * FROM departements WHERE id = "${id}"`;
+  const Result = await sequelize.query(Query, {
+    type: QueryTypes.SELECT,
+  });
+  return Result;
+};
+
+//responsable_stage//
+exports.responsable_stage = async (req, res) => {
+  const data = await getAllResponsable_stage();
+  console.log("data", data);
+  res.render("responsable_stage", { locals: { responsables: data } });
+};
+
+exports.addResponsable_stage = async (req, res) => {
+  try {
+    const responsable_stage = {
+      cin: req.body.cin,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      specialite: req.body.specialite,
+      adresse: req.body.adresse,
+    };
+    console.log(responsable_stage);
+    const responsable_stageeValues = [
+      "UUID()",
+      `"${responsable_stage.cin}"`,
+      `"${responsable_stage.nom}"`,
+      `"${responsable_stage.prenom}"`,
+      `"${responsable_stage.email}"`,
+      `"${responsable_stage.telephone}"`,
+      `"${responsable_stage.specialite}"`,
+      `"${responsable_stage.adresse}"`,
+    ];
+    const Query = `INSERT INTO responsablesstages (id, cin, nom, prenom, email, telephone	, specialite, adresse, createdAt, updatedAt) VALUES (${responsable_stageeValues.join(
+      ", "
+    )}, NOW(), NOW())`;
+
+    const Result = await sequelize.query(Query);
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log("add resp err", error);
+    res.json({ error });
+  }
+};
+
+exports.getEditResponsable_stage = async (req, res) => {
+  const Result = await getResponsable_stageById(req.params.id);
+  res.render("editeresponsable_stage", {
+    locals: {
+      e: Result[0],
+    },
+  });
+};
+exports.editResponsable_stage = async (req, res) => {
+  try {
+    const update = {
+      cin: req.body.cin,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      specialite: req.body.specialite,
+      adresse: req.body.adresse,
+    };
+
+    console.log(update);
+    // update responsable de stage to database using raw query
+    const updated = await sequelize.query(
+      `UPDATE responsablesstages SET cin = "${update.cin}", nom = "${update.nom}",prenom = "${update.prenom}",
+      email = "${update.email}",telephone	 = "${update.telephone}",specialite = "${update.specialite}",
+      adresse = "${update.adresse}" WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.UPDATE }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+exports.deleteResponsable_stage = async (req, res) => {
+  try {
+    const deleted = await sequelize.query(
+      `DELETE FROM responsablesstages WHERE id = "${req.params.id}"`,
+      { type: QueryTypes.DELETE }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
+const getAllResponsable_stage = async () => {
+  try {
+    const responsable_stageQuery = `SELECT * FROM responsablesstages`;
+    const responsable_stageResult = await sequelize.query(
+      responsable_stageQuery,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+    return responsable_stageResult;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getResponsable_stageById = async (id) => {
+  const Query = `SELECT * FROM responsablesstages WHERE id = "${id}"`;
+  const Result = await sequelize.query(Query, {
+    type: QueryTypes.SELECT,
+  });
+  return Result;
+};
+
+
+// statisitque //
+exports.getStats = async (req, res) => {
+  const etudiants = await sequelize.query(
+    `SELECT COUNT(*) AS count FROM etudiants`,
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+  const responsablesstages = await sequelize.query(
+    `SELECT COUNT(*) AS count FROM responsablesstages`,
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+  const organismes = await sequelize.query(
+    `SELECT COUNT(*) AS count FROM organismes`,
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+  const stages = await sequelize.query(`SELECT COUNT(*) AS count FROM stages`, {
+    type: QueryTypes.SELECT,
+  });
+  const departements = await sequelize.query(`SELECT COUNT(*) AS count FROM departements`, {
+    type: QueryTypes.SELECT,
+  });
+  
+  const users = await sequelize.query(`SELECT COUNT(*) AS count FROM users  `, {
+    type: QueryTypes.SELECT,
+  });
+  
+  res.render("stat", {
+    locals:{
+      etudiants: etudiants[0].count,
+      responsablesstages: responsablesstages[0].count,
+      organismes: organismes[0].count,
+      stages: stages[0].count,
+      departements:departements[0].count,
+      users:users[0].count,
+    },
+  });
+};
+
+
+

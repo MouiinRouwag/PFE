@@ -138,6 +138,8 @@ exports.home = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
   try {
+
+ 
     // console.log('exports.dashboard',await req.isAuthenticated());
     const user = await req.user;
     if (await req.isAuthenticated()) {
@@ -145,6 +147,7 @@ exports.dashboard = async (req, res) => {
         locals: {
           title: "ES6 ",
           userData: user.dataValues,
+          
         },
         partials: {
           nav: "views/includes/nav.html",
@@ -159,3 +162,5 @@ exports.dashboard = async (req, res) => {
     }
   } catch (error) {}
 };
+
+

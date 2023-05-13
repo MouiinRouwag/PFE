@@ -1,29 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-  const Organisme = sequelize.define("organismes", {
+  const Departement = sequelize.define("departements", {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
-    code_organisme: {
+    code_departement: {
       type: Sequelize.STRING,
     },
-    nom_organisme : {
+    nom_departement : {
         type: Sequelize.STRING,
     },
-    adresse_organisme: {
-      type: Sequelize.TEXT,
-    },
-    telephone_organisme: {
-      type: Sequelize.TEXT,
-    },
-    email_organisme: {
-      type: Sequelize.TEXT,
-    },
-    secteur_activite: {
-      type: Sequelize.TEXT,
-    },
+   
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
@@ -36,9 +25,6 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  return Organisme;
+  return Departement;
 };
 
-// organisme
-// responsable
-// tuteur

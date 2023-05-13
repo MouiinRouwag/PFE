@@ -83,7 +83,7 @@ background-repeat: no-repeat;">
           </li> ` : `` }
           
           ${(userData.role == "admin") ?  ` <li>
-            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg :text-white hover:bg-blue-300">
+            <a href="/admin/stage" class="flex items-center p-2 text-gray-400 rounded-lg :text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
               </svg>
@@ -119,7 +119,7 @@ background-repeat: no-repeat;">
           </li>` : `` }
           
           ${(userData.role == "admin" ) ?  ` <li>
-            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
+            <a href="/admin/departement" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
               </svg>
@@ -127,7 +127,7 @@ background-repeat: no-repeat;">
             </a>
           </li>` : `` }
           ${(userData.role == "admin" ) ?  ` <li>
-            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
+            <a href="/admin/responsable_stage" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
               </svg>
@@ -136,7 +136,7 @@ background-repeat: no-repeat;">
           </li>` : `` }
           
           ${(userData.role == "admin") ?  ` <li>
-            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
+            <a href="/admin/stats" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
               </svg>
@@ -153,15 +153,15 @@ background-repeat: no-repeat;">
               <span class="text-black">Espace des étudiants</span>
             </a>
           </li>` : `` }
-          
-          ${(userData.role == "admin" || userData.role == "tuteur") ?  ` <li>
+          <li>
             <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
               </svg>
-              <span class="text-black">Espace des tuteurs</span>
+              <span class="text-black">Espace des enseignants</span>
             </a>
-          </li>` : `` }
+          </li>
+         
           
           ${(userData.role == "admin" ||  userData.role == "responsable" ) ?  ` <li>
             <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
@@ -171,7 +171,22 @@ background-repeat: no-repeat;">
               <span class="text-black">Espace de responsable de stage</span>
             </a>
           </li>` : `` }
-          
+          <li>
+            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
+              <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
+              </svg>
+              <span class="text-black">Espace des organismes</span>
+            </a>
+          </li>
+          ${(userData.role == "admin" || userData.role == "tuteur") ?  ` <li>
+            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
+              <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M21,7.5H15V3.5a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H9v4H3a1,1,0,0,0,0,2H8a1,1,0,0,0,1-1V19h6v4a1,1,0,0,0,2,0V19h6v2a1,1,0,0,0,2,0V19h5a1,1,0,0,0,0-2H19V15h5a1,1,0,0,0,0-2H19V9h5A1,1,0,0,0,21,7.5Z"></path>
+              </svg>
+              <span class="text-black">Espace des tuteurs</span>
+            </a>
+          </li>` : `` }
           <!-- ${(userData.role == "admin"  || userData.role == "responsable" || userData.role == "tuteur") ?  ` <li>
             <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg hover:text-white hover:bg-blue-300">
               <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24">
@@ -188,37 +203,37 @@ background-repeat: no-repeat;">
               <span class="text-black">  Déconnection</span>
             </a>
           </li> 
-          
-          
         </ul>
      </div>
   </aside>
   <div class="container mx-auto px-60 py-60 flex justify-center">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-6">
       <div class="bg-white rounded-lg p-4 shadow">
-        <h2 class="text-lg font-bold mb-2">Nomber des Stagiaires</h2>
-        <p class="text-2xl font-bold">42</p>
+        <h2 class="text-lg font-bold mb-2">Nomber des Administrateurs</h2>
+        <p class="text-2xl font-bold">1</p>
       </div>
       <div class="bg-white rounded-lg p-4 shadow">
         <h2 class="text-lg font-bold mb-2">Nomber des Organismes</h2>
-        <p class="text-2xl font-bold">18</p>
+        <p class="text-2xl font-bold">5</p>
       </div>
       <div class="bg-white rounded-lg p-4 shadow">
-        <h2 class="text-lg font-bold mb-2">Nomber des Demandes de stage</h2>
-        <p class="text-2xl font-bold">76</p>
+        <h2 class="text-lg font-bold mb-2">Nomber des Responsable de stage</h2>
+        <p class="text-2xl font-bold">2</p>
       </div>
       <div class="bg-white rounded-lg p-4 shadow">
-        <h2 class="text-lg font-bold mb-2">Nomber des Département</h2>
-        <p class="text-2xl font-bold">76</p>
+        <h2 class="text-lg font-bold mb-2">Nomber des Départements</h2>
+        <p class="text-2xl font-bold">4</p>
       </div>
       <div class="bg-white rounded-lg p-4 shadow">
-        <h2 class="text-lg font-bold mb-2">Nomber des enseignant</h2>
-        <p class="text-2xl font-bold">76</p>
+        <h2 class="text-lg font-bold mb-2">     Nomber des Etudiants </br>
+          Nomber des Enseignants</h2>
+        <p class="text-2xl font-bold">10</p>
       </div>
       <div class="bg-white rounded-lg p-4 shadow">
-        <h2 class="text-lg font-bold mb-2">Nomber des stage</h2>
-        <p class="text-2xl font-bold">76</p>
+        <h2 class="text-lg font-bold mb-2">Nomber des Stages</h2>
+        <p class="text-2xl font-bold">3</p>
       </div>
+  
     </div>
   </div>
 </div>

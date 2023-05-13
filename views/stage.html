@@ -60,7 +60,7 @@
       </div>
       <div class="flex justify-center">
         <button
-          class="bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
           id="addStage"
         >
           Ajouter
@@ -79,7 +79,7 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Exemple de ligne pour un organisme -->
+            <!-- Exemple de ligne pour un stage -->
             ${stages && stages.map((e) => { return `
             <tr>
               <td class="border px-4 py-2">${e.code_stage}</td>
@@ -88,16 +88,16 @@
               <td class="border px-4 py-2">${new Intl.DateTimeFormat(['ban', 'id']).format(e.createdAt)}</td>
               <td class="border px-4 py-2">
                 <a
-                  class="bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                  class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
                   type="button"
                   href="/admin/editstage/${e.id}"
                 >
                   Modifier
                 </a>
                 <button
-                  class="bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                  class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
                   type="button"
-                  onclick="deleteOrganisme('${e.id}')"
+                  onclick="deleteStage('${e.id}')"
                 >
                   Supprimer
                 </button>
@@ -131,9 +131,9 @@
         });
     });
 
-    function deleteOrganisme(id) {
+    function deleteStage(id) {
       axios
-        .delete("http://localhost:3000/admin/deleteOrganisme/" + id)
+        .delete("http://localhost:3000/admin/deleteStage/" + id)
         .then((res) => {
           console.log(res);
           if (res.data.success) {
